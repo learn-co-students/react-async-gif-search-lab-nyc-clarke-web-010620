@@ -1,6 +1,7 @@
 .gif-search {
     position: relative;
-    left: 45em;
-    top: -30em;
-    font-size: calc(10px + 2vmin);
+    top: -36em;
+    left: 36em;
+    /* font-size: calc(10px + 2vmin); */
+    font-size: 180%;
     }

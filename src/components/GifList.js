@@ -7,7 +7,7 @@ class GifList extends React.Component {
         console.log(this.props)
         return (
             <li>
-                <img src={this.props.images.original.url} alt="not found" />
+                <img src={this.props.images.original.url} alt="not found" height="300" width="300" />
             </li>
         ) 
     }

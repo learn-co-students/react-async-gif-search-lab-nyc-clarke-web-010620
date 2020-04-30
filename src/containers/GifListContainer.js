@@ -2,6 +2,9 @@ import React from 'react';
 import GifList from '../components/GifList'
 import GifSearch from '../components/GifSearch'
 
+let BASE_URL = 'https://api.giphy.com/v1/gifs/search?q='
+let API_KEY = '&api_key=dc6zaTOxFJmzC&rating=g'
+
 class GifListContainer extends React.Component {
 
     state = {
@@ -13,7 +16,8 @@ class GifListContainer extends React.Component {
       }
     
       fetchGifs = () => {
-        fetch('https://api.giphy.com/v1/gifs/search?q=bear&api_key=dc6zaTOxFJmzC&rating=g')
+        // fetch('https://api.giphy.com/v1/gifs/search?q=bear&api_key=dc6zaTOxFJmzC&rating=g')
+        fetch(BASE_URL + "bear" + API_KEY)
         .then(resp => resp.json())
         .then(data => {
             this.setGifs(data.data) 
@@ -25,8 +29,21 @@ class GifListContainer extends React.Component {
           for (let i = 0; i < 3; i++) {
               gifsArray.push(gifs[i])
           }
-          this.setState({ gifs: gifsArray }, () => console.log(this.state.gifs))
-            //   console.log(gifs[i].images.original.url)
+          this.setState({ gifs: gifsArray }, () => console.log(this.state.gifs))   
+      }
+
+      handleSearch = (searchQuery) => {
+        if (searchQuery != '') {
+        let fetchQuery = BASE_URL + searchQuery + API_KEY
+        console.log(fetchQuery)
+        fetch(BASE_URL + searchQuery + API_KEY)
+        .then(resp => resp.json())
+        .then(data => {
+          this.setGifs(data.data)
+        })
+        } else {
+          return
+        }
       }
 
     render() {
@@ -38,7 +55,7 @@ class GifListContainer extends React.Component {
                     <GifList key={gif.id} {...gif} /> 
                  ))}
                  </ul>
-                 <GifSearch />
+                 <GifSearch handleSearch={this.handleSearch}/>
             </div>
         )
     }
